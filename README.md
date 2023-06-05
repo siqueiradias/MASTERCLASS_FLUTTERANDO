@@ -2,7 +2,24 @@
 Turma 8 - MASTERCLASS - iniciante.
 
 ## Desafios:
+---
+### Desafio 01:
+O (IMC) índice de massa corporal é baseado na altura e peso do individuo. 
+O calculo é representado por Dividir o peso pela Altura ao quadradro² 
+ 
+Cria uma função que realize o calculo de IMC. 
 
+---
+
+### Desafio 02:
+Na matemática, a sucessão de Fibonacci (ou sequência de Fibonacci), é uma sequência de números inteiros, começando normalmente por 0 e 1, na qual cada termo subsequente corresponde à soma dos dois anteriores. A sequência recebeu o nome do matemático italiano Leonardo de Pisa, mais conhecido por Fibonacci, que descreveu, no ano de 1202, o crescimento de uma população de coelhos, a partir desta. Esta sequência já era, no entanto, conhecida na antiguidade.
+ 
+Implemente a sequencia fibonacci com funcões recursivamente usando o Dart. 
+Boa sorte! 
+Ah, não custa dizer: NÃO PESQUISE NA INTERNET SE NAO DESEJA MINAR SEU CONHECIMENTO E DÊ APENAS DICAS AOS SEUS PARES, E NÃO A REPOSTA CORRETA DE CARA. LEMBRE-SE QUE INFORMAÇÃO < CONHECIMENTO.  
+E estamos aqui pra conseguir conhecimento, informação tem muito na internet.
+
+---
 
 ### Desafio 03:
 Uma das coisas mais úteis que aprendemos no ensino médio é a "Regra de 3".
