@@ -1,70 +1,74 @@
 import 'dart:io';
 
-bool incognita = false;
 void main() {
-  print('+++ Regra de Três Simples +++');
-  print("\nPara informar a incógnita digite: 'x'\n");
-  print('Informe o numerador A:');
-  var numeradorA = receberValor();
-  print('Informe o denominador A:');
-  var denominadorA = receberValor();
-  print('Informe o numerador B:');
-  var numeradorB = receberValor();
-  print('Informe o denominador B:');
-  var denominadorB = receberValor();
+  List valores = [];
+  getEntrada(valores);
 
-  print('\n');
-  print('$numeradorA/$denominadorA = $numeradorB/$denominadorB');
+  print("\x1B[2J\x1B[0;0H"); //Limpa a tela
+  print('+++ Regra de Três Simples +++');
+  print('');
+  print('${valores[0]}/${valores[1]} = ${valores[2]}/${valores[3]}');
   print('');
 
-  late double resultado;
-  if (numeradorA == 'x') {
-    resultado = (double.parse(denominadorA) * double.parse(numeradorB)) /
-        double.parse(denominadorB);
-  } else if (denominadorA == 'x') {
-    resultado = (double.parse(numeradorA) * double.parse(denominadorB)) /
-        double.parse(numeradorB);
-  } else if (numeradorB == 'x') {
-    resultado = (double.parse(numeradorA) * double.parse(denominadorB)) /
-        double.parse(denominadorA);
-  } else if (denominadorB == 'x') {
-    resultado = (double.parse(denominadorA) * double.parse(numeradorB)) /
-        double.parse(numeradorA);
-  } else {
-    resultado = (double.parse(numeradorA) * double.parse(denominadorB)) /
-        (double.parse(denominadorA) * double.parse(numeradorB));
-  }
+  double resultado = calcularRegraDeTres(
+      numeradorA: valores[0],
+      denominadorA: valores[1],
+      numeradorB: valores[2],
+      denominadorB: valores[3]);
 
-  if (incognita) {
-    print('Resultado da Rega de Três Simples');
-    print('>>> x = $resultado');
-  } else {
-    print('>>> Resultado da Rega de Três Simples: $resultado.');
+  print('>>> Resultado = $resultado');
+}
+
+///Recebe e valida os dados de Entrada do usuario
+void getEntrada(List lista) {
+  for (var i = 0; i < 4; i++) {
+    print("\x1B[2J\x1B[0;0H"); //Limpa a tela
+    print('+++ Regra de Três Simples +++');
+    print(
+        "\nPara informar a incógnita deixe o campo vazio e pressione 'ENTER'\n");
+    print(lista);
+    bool valorValido = false;
+    while (!valorValido) {
+      print('Informe o ${i + 1}º valor: ');
+      if ((i == 3) && (!lista.contains(''))) {
+        lista.add('');
+        valorValido = true;
+        break;
+      }
+      String? textValor = stdin.readLineSync();
+      if ((textValor != null) && (textValor == '') && (!lista.contains(''))) {
+        lista.add(textValor);
+        valorValido = true;
+      } else if (double.tryParse(textValor!.replaceAll(',', '.')) is double) {
+        lista.add(double.tryParse(textValor.replaceAll(',', '.')));
+        valorValido = true;
+      } else {
+        print('VALOR INVALÍDO!');
+        if (lista.contains('')) {
+          print(
+              "Incógnita JÁ FOI ADICIONADA, deve ser informada uma única vez.");
+        }
+        print('Verifique e informe novamente um valor: ');
+      }
+    }
   }
 }
 
-///Trata a entrada de dados do usuario
-String receberValor() {
-  String? textValor = stdin.readLineSync();
-  if ((textValor != null) &&
-      (textValor.toLowerCase() == 'x') &&
-      (incognita == false)) {
-    incognita = true;
-    return textValor.toLowerCase();
-  }
-  double? x = double.tryParse(textValor!);
-  if (x is double) {
-    return x.toString();
+///Realiza o calculo da regra de três simples
+double calcularRegraDeTres(
+    {var numeradorA = '',
+    var denominadorA = '',
+    var numeradorB = '',
+    var denominadorB}) {
+  late double resultado;
+  if (numeradorA == '') {
+    resultado = (denominadorA * numeradorB) / denominadorB;
+  } else if (denominadorA == '') {
+    resultado = (numeradorA * denominadorB) / numeradorB;
+  } else if (numeradorB == '') {
+    resultado = (numeradorA * denominadorB) / denominadorA;
   } else {
-    print("\x1B[2J\x1B[0;0H"); //Limpa a tela
-    print("Valor invalido!");
-    if (incognita == false) {
-      print("Informe a letra 'x' como incógnita.");
-    } else {
-      print("A incógnita 'x' deve ser informada uma única vez.");
-      print("A incógnita 'x' JÁ foi informada.");
-    }
-    print('Verifique e informe novamente um valor: ');
-    return receberValor();
+    resultado = (denominadorA * numeradorB) / numeradorA;
   }
+  return resultado;
 }
