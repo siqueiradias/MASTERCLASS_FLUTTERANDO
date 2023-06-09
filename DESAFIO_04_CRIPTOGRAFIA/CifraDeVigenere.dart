@@ -13,6 +13,7 @@ void main(List<String> args) {
   print('Texto informado em Char Code: ${c.getMsgCharCode()}');
   print('');
   print('Chave de criptografia: ${c.getKey()}');
+  print('Chave de criptografia em Char Code: ${c.getKeyCharCode()}');
   print('');
   print('Mensagem criptografada: ${c.encodeMsg()}');
   print('Mensagem criptografada em Char Code: ${c.getMsgCharCode()}');
@@ -37,9 +38,9 @@ class Criptografia {
   }
 
   ///Gera a chave de criptografia
-  List _setKeyRandom() {
+  List<int> _setKeyRandom() {
     var random = new Random();
-    var key = [];
+    var key = <int>[];
     for (var i = 0; i < _msg.length; i++) {
       if ((_msg[i] >= 65) && (_msg[i] <= 90)) {
         key.add(random.nextInt(256));
@@ -50,8 +51,13 @@ class Criptografia {
     return key;
   }
 
-  ///Retorna o Key em formato CharCode dentro de uma Lista
-  List getKey() {
+  ///Retorna a Key
+  String getKey() {
+    return String.fromCharCodes(_key);
+  }
+
+  ///Retorna a Key em formato CharCode dentro de uma Lista
+  List getKeyCharCode() {
     return this._key;
   }
 
